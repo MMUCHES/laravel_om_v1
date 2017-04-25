@@ -10,15 +10,14 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')
-            ->only('login');
+        $this->middleware('auth:api')->only('logout');
     }
 
-    public function reister(Request $request)
+    public function register(Request $request)
     {
         $this->validate($request, [
                 'name' => 'required|max:255',
-                'email' => 'required|email|uniqid:users',
+                'email' => 'required|email|unique:users',
                 'password' => 'required|between:6,25|confirmed'
         ]);
 
@@ -28,7 +27,7 @@ class AuthController extends Controller
 
         return response()
             ->json([
-                'reistered' => true
+                'registered' => true
         ]);
     }
 
