@@ -8,10 +8,11 @@ use Hash;
 
 class AuthController extends Controller
 {
+    
     public function __construct()
-    {
-        $this->middleware('auth:api')->only('logout');
-    }
+	{
+	    $this->middleware('auth:api')->only('logout');
+	}
 
     public function register(Request $request)
     {
@@ -41,7 +42,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)
             ->first();
 
-        if($user && Hash::check($request->password, $user->paddword)){
+        if($user && Hash::check($request->password, $user->password)){
 
              $user->api_token = str_random(60);
 
@@ -68,8 +69,6 @@ class AuthController extends Controller
         $user->save();
 
         return response()
-            ->json([
-                'done' => true
-            ]);
+            ->json(['logged_out' => true]);
     }
 }
