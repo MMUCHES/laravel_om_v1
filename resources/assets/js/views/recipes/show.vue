@@ -51,9 +51,10 @@
 </template>
 
 <script type="text/javascript">    
-    import Flash from '../../helpers/flash'
+
     import Auth from '../../store/auth'
-    import {get, del} from '../../helpers/api'
+	import Flash from '../../helpers/flash'
+	import { get, del } from '../../helpers/api'
 
     export default {
         data(){

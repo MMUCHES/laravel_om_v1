@@ -101,20 +101,19 @@ class RecipeController extends Controller
     public function edit($id, Request $request)
     {
         $form = $request->user()->recipes()
-        ->with([
-           'ingredients' => function($query){
+            ->with(['ingredients' => function($query) {
                 $query->get(['id', 'name', 'qty']);
-        },
-           'directions' => function($query){
+            }, 'directions' => function($query) {
                 $query->get(['id', 'description']);
-        }
-        ])
-        ->findOrFail($id, [
-            'id', 'name', 'description', 'iamge'
-        ]);
+            }])
+            ->findOrFail($id, [
+                'id', 'name', 'description', 'image'
+            ]);
 
         return response()
-        ->json(['form' => $form]);
+            ->json([
+                'form' => $form
+            ]);
     }
 
     public function update($id, Request $request)
