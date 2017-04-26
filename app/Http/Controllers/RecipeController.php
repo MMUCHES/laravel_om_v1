@@ -84,7 +84,7 @@ class RecipeController extends Controller
         ]);
     }
 
-    public function getFileName($file)
+    private function getFileName($file)
     {
         return str_random(32).'.'.$file->extension();
     }
@@ -142,17 +142,17 @@ class RecipeController extends Controller
         foreach($request->ingredients as $ingredient){
             if(isset($ingredient['id'])){
                 RecipeIngredient::where('recipe_id', $recipe->id)
-                ->where('id', $ingredient[,id])
+                ->where('id', $ingredient['id'])
                 ->update($ingredient);
 
                 $ingredientsUpdated[] = $ingredient['id'];
-            },else{
+            }else{
                 $ingredients[] = new RecipeIngredient($ingredient);
             }
         }
 
         $directions = [];
-        $directionsUpdated
+        $directionsUpdated = [];
 
         foreach($request->directions as $direction){
             if(isset($direction['id'])){
@@ -200,7 +200,7 @@ class RecipeController extends Controller
             'saved' => true,
             'id' => $recipe->id,
             'message' => 'You have successfully updated recipe!'
-        ])
+        ]);
     }
 
     public function destroy($id, Request $request)
@@ -218,7 +218,7 @@ class RecipeController extends Controller
 
         $recipe->delete();
 
-        return resonse()
+        return response()
         -json(['deleted' => true]);
     }
 }

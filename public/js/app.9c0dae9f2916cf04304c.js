@@ -1870,6 +1870,108 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/recipes/show.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_flash__ = __webpack_require__("./resources/assets/js/helpers/flash.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_auth__ = __webpack_require__("./resources/assets/js/store/auth.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_api__ = __webpack_require__("./resources/assets/js/helpers/api.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            auth: __WEBPACK_IMPORTED_MODULE_1__store_auth__["a" /* default */].state,
+            isRemoving: false,
+            recipe: {
+                user: {},
+                ingredients: [],
+                directions: []
+            }
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__helpers_api__["b" /* get */])('/api/recipes/' + this.$route.params.id).then(function (res) {
+            _this.recipe = res.data.recipe;
+        });
+    },
+
+    methods: {
+        remove: function remove() {
+            var _this2 = this;
+
+            this.isRemoving = false;
+            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__helpers_api__["c" /* del */])('/api/recipes/' + this.$route.params.id).then(function (res) {
+                if (res.data.deleted) {
+                    __WEBPACK_IMPORTED_MODULE_0__helpers_flash__["a" /* default */].setSuccess('You have successfully deleted recipe!');
+                    _this2.$router.push('/');
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /***/ (function(module, exports) {
 
@@ -2404,6 +2506,75 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-c20bdda4", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ce7968da\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/recipes/show.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "recipe__show"
+  }, [_c('div', {
+    staticClass: "recipe__row"
+  }, [_c('div', {
+    staticClass: "recipe__image"
+  }, [_c('div', {
+    staticClass: "recipe__box"
+  }, [(_vm.recipe.image) ? _c('img', {
+    attrs: {
+      "src": ("/images/" + (_vm.recipe.image))
+    }
+  }) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "recipe__details"
+  }, [_c('div', {
+    staticClass: "recipe__details_inner"
+  }, [_c('small', [_vm._v("Create By : " + _vm._s(_vm.recipe.user.name))]), _vm._v(" "), _c('h1', {
+    staticClass: "recipe__title"
+  }, [_vm._v(_vm._s(_vm.recipe.name))]), _vm._v(" "), _c('p', {
+    staticClass: "recipe__description"
+  }, [_vm._v(_vm._s(_vm.recipe.description))]), _vm._v(" "), (_vm.auth.api_token && _vm.auth.user_id === _vm.recipe.user_id) ? _c('div', [_c('router-link', {
+    staticClass: "btn btn__primary",
+    attrs: {
+      "to": ("/recipes/" + (_vm.recipe.id) + "/edit")
+    }
+  }, [_vm._v("\n                    Edit\n                    ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn__danger",
+    attrs: {
+      "disabled": _vm.isRemoving
+    },
+    on: {
+      "click": _vm.remove
+    }
+  }, [_vm._v("Delete")])], 1) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "recipe__row"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "recipe__row"
+  }, [_c('div', {
+    staticClass: "recipe__ingredients"
+  }, [_c('div', {
+    staticClass: "recipe__box"
+  }, [_c('h3', {
+    staticClass: "recipe__sub_title"
+  }, [_vm._v("Ingredients")]), _vm._v(" "), _c('ul', _vm._l((_vm.recipe.ingredients), function(ingredient) {
+    return _c('li', [_c('span', [_vm._v(_vm._s(ingredient.name))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(ingredient.qty))])])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "recipe__directions"
+  }, [_c('div', {
+    staticClass: "recipe__directions_inner"
+  }, [_c('h3', {
+    staticClass: "recipe__subtitle"
+  }, [_vm._v("Directions")]), _vm._v(" "), _c('ul', _vm._l((_vm.recipe.directions), function(direction, i) {
+    return _c('li', [_c('p', [_c('strong', [_vm._v(_vm._s(i + 1))]), _vm._v("\n                            " + _vm._s(direction.description) + "\n                        ")])])
+  }))])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ce7968da", module.exports)
   }
 }
 
@@ -14294,6 +14465,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_auth__ = __webpack_require__("./resources/assets/js/store/auth.js");
 /* harmony export (immutable) */ __webpack_exports__["b"] = get;
 /* harmony export (immutable) */ __webpack_exports__["a"] = post;
+/* harmony export (immutable) */ __webpack_exports__["c"] = del;
 
 
 
@@ -14313,6 +14485,16 @@ function post(url, data) {
         method: 'POST',
         url: url,
         data: data,
+        headers: {
+            'Authorization': 'Bearer ' + __WEBPACK_IMPORTED_MODULE_1__store_auth__["a" /* default */].state.api_token
+        }
+    });
+}
+
+function del(url) {
+    return __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+        method: 'DELETE',
+        url: url,
         headers: {
             'Authorization': 'Bearer ' + __WEBPACK_IMPORTED_MODULE_1__store_auth__["a" /* default */].state.api_token
         }
@@ -14369,6 +14551,9 @@ function post(url, data) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_auth_login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_auth_login_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_recipes_index_vue__ = __webpack_require__("./resources/assets/js/views/recipes/index.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_recipes_index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_recipes_index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_recipes_show_vue__ = __webpack_require__("./resources/assets/js/views/recipes/show.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_recipes_show_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_recipes_show_vue__);
+
 
 
 
@@ -14381,7 +14566,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
-    routes: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_4__views_recipes_index_vue___default.a }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_2__views_auth_register_vue___default.a }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_3__views_auth_login_vue___default.a }]
+    routes: [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_4__views_recipes_index_vue___default.a }, { path: '/recipes/:id', component: __WEBPACK_IMPORTED_MODULE_5__views_recipes_show_vue___default.a }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_2__views_auth_register_vue___default.a }, { path: '/login', component: __WEBPACK_IMPORTED_MODULE_3__views_auth_login_vue___default.a }]
 
 });
 
@@ -14513,6 +14698,41 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-78d1a4a8", Component.options)
   } else {
     hotAPI.reload("data-v-78d1a4a8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/views/recipes/show.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/views/recipes/show.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ce7968da\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/views/recipes/show.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\BITNAMI\\apache2\\htdocs\\laravel_om_v1\\resources\\assets\\js\\views\\recipes\\show.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] show.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ce7968da", Component.options)
+  } else {
+    hotAPI.reload("data-v-ce7968da", Component.options)
   }
 })()}
 

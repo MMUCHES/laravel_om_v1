@@ -20,7 +20,7 @@ class Recipe extends Model
 
     public function directions()
     {
-        return $this->hasMany(RecipeDirection);
+        return $this->hasMany(RecipeDirection::class);
     }
 
     public static function form()
