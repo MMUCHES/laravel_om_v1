@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Recipe extends Model
+class Product extends Model
 {
     protected $fillable = [
     	'name', 'description', 'image'
@@ -15,15 +15,16 @@ class Recipe extends Model
     	return $this->belongsTo(User::class);
     }
 
-    public function ingredients()
+    public function details()
     {
-    	return $this->hasMany(RecipeIngredient::class);
+    	return $this->hasMany(ProductDetail::class);
     }
 
-    public function directions()
+    public function explains()
     {
-    	return $this->hasMany(RecipeDirection::class);
+    	return $this->hasMany(ProductExplain::class);
     }
+    
 
     public static function form()
     {
@@ -31,12 +32,12 @@ class Recipe extends Model
             'name' => '',
             'image' => '',
             'description' => '',
-            'ingredients' => [
-                RecipeIngredient::form()
+            'details' => [
+                ProductDetail::form()
             ],
-            'directions' => [
-                RecipeDirection::form(),
-                RecipeDirection::form()
+            'explains' => [
+                ProductExplain::form(),
+                ProductExplain::form()
             ]
         ];
     }

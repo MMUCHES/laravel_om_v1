@@ -8,7 +8,7 @@
         </div>
         <div class="form__group">
             <label>Email</label>
-            <input type="email" class="form__control" v-model="form.email">
+            <input type="text" class="form__control" v-model="form.email">
             <small class="error__control" v-if="error.email">{{error.email[0]}}</small>
         </div>
         <div class="form__group">
@@ -25,14 +25,12 @@
         </div>
     </form>
 </template>
-
 <script type="text/javascript">
-
-import { post } from '../../helpers/api'
-import Flash from '../../helpers/flash'
+    import Flash from '../../helpers/flash'
+    import { post } from '../../helpers/api'
     export default {
-        data(){
-            return{
+        data() {
+            return {
                 form: {
                     name: '',
                     email: '',
@@ -44,23 +42,23 @@ import Flash from '../../helpers/flash'
             }
         },
         methods: {
-            register(){
+            register() {
                 this.isProcessing = true
                 this.error = {}
-                post('/api/register', this.form)
-                .then((res) => {
-                    if(res.data.registered){
-                        Flash.setSuccess('Congratulations! You have now successfully registered.')
-                        this.$router.push('/login')
-                    }
-                    this.isProcessing = false
-                })
-                .catch((err) => {
-                    if(err.response.status === 422){
-                        this.error = err.response.data
-                    }
-                    this.isProcessing = false
-                })
+                post('api/register', this.form)
+                    .then((res) => {
+                        if(res.data.registered) {
+                            Flash.setSuccess('Congratulations! You have now successfully registered.')
+                            this.$router.push('/login')
+                        }
+                        this.isProcessing = false
+                    })
+                    .catch((err) => {
+                        if(err.response.status === 422) {
+                            this.error = err.response.data
+                        }
+                        this.isProcessing = false
+                    })
             }
         }
     }

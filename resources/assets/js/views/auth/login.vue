@@ -16,42 +16,41 @@
         </div>
     </form>
 </template>
-
 <script type="text/javascript">
-
-import { post } from '../../helpers/api'
-import Flash from '../../helpers/flash'
-import Auth from '../../store/auth'
+    import Flash from '../../helpers/flash'
+    import Auth from '../../store/auth'
+    import { post } from '../../helpers/api'
     export default {
-        data(){
-            return{
+        data() {
+            return {
                 form: {
                     email: '',
-                    password: '',
+                    password: ''
                 },
                 error: {},
                 isProcessing: false
             }
         },
         methods: {
-            login(){
+            login() {
                 this.isProcessing = true
                 this.error = {}
-                post('/api/login', this.form)
-                .then((res) => {
-                    if(res.data.authenticated){
-                        Auth.set(res.data.api_token, res.data.user_id)
-                        Flash.setSuccess('Congratulations! You have now successfully login.')
-                        this.$router.push('/')
-                    }
-                    this.isProcessing = false
-                })
-                .catch((err) => {
-                    if(err.response.status === 422){
-                        this.error = err.response.data
-                    }
-                    this.isProcessing = false
-                })
+                post('api/login', this.form)
+                    .then((res) => {
+                        if(res.data.authenticated) {
+                            // set token
+                            Auth.set(res.data.api_token, res.data.user_id)
+                            Flash.setSuccess('You have successfully logged in.')
+                            this.$router.push('/')
+                        }
+                        this.isProcessing = false
+                    })
+                    .catch((err) => {
+                        if(err.response.status === 422) {
+                            this.error = err.response.data
+                        }
+                        this.isProcessing = false
+                    })
             }
         }
     }

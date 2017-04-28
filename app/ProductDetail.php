@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RecipeDirection extends Model
+class ProductDetail extends Model
 {
     protected $fillable = [
-    	'description'
+    	'name', 'qty'
     ];
 
     public $timestamps = false;
@@ -15,7 +15,8 @@ class RecipeDirection extends Model
     public static function form()
     {
     	return [
-    		'description' => ''
+    		'name' => '',
+    		'qty' => ''
     	];
     }
 }

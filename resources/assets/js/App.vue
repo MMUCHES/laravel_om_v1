@@ -1,71 +1,83 @@
 <template>
-
-    <div class="container">
-        <div class=navbar>
-            
-            <div class="navbar__brand">
-                <router-link to="/">HOME</router-link>
-            </div>
-
-            <ul class="navbar_list">
-                <li class="navbar__item" v-if="!check">
-                    <router-link to="login">LOGIN</router-link>
-                </li>
-                <li class="navbar__item" v-if="!check">
-                    <router-link to="register">REGISTER</router-link>
-                </li>
-                <li class="navbar__item" v-if="check">
-                    <a @click.stop="logout">LOGOUT</a>
-                </li>
-            </ul>
-        </div>
-        <div class="flash flash__success" v-if="flash.success">
-            {{flash.success}}
-        </div>
-        <div class="flash flash__error" v-if="flash.error">
-            {{flash.error}}
-        </div>
-        
-        <router-view></router-view>
-    </div>
-
+	<div class="container">
+		<div class="navbar">
+			<div class="navbar__brand">
+				<router-link to="/">HOME</router-link>
+			</div>
+			<ul class="navbar__list">
+				<li class="navbar__item"  v-if="guest">
+					<router-link to="/login">LOGIN</router-link>
+				</li>
+				<li class="navbar__item"  v-if="guest">
+					<router-link to="/register">REGISTER</router-link>
+				</li>
+				<li class="navbar__item"  v-if="auth">
+					<router-link to="/products/create">CREATE RECIPE</router-link>
+				</li>
+				<li class="navbar__item"  v-if="auth">
+					<a @click.stop="logout">LOGOUT</a>
+				</li>
+			</ul>
+		</div>
+		<div class="flash flash__error" v-if="flash.error">
+			{{flash.error}}
+		</div>
+		<div class="flash flash__success" v-if="flash.success">
+			{{flash.success}}
+		</div>
+		<router-view></router-view>
+	</div>
 </template>
 <script type="text/javascript">
+	import Auth from './store/auth'
+	import Flash from './helpers/flash'
+	import { post, interceptors } from './helpers/api'
+	export default {
+		created() {
+			interceptors((err) => {
+				if(err.response.status === 401) {
+					Auth.remove()
+					this.$router.push('/login')
+				}
 
-import Flash from './helpers/flash'
-import Auth from './store/auth'
-import { post } from './helpers/api'
+				if(err.response.status === 500) {
+					Flash.setError(err.response.statusText)
+				}
 
-    export default {
-
-        created() {
-            Auth.initialize()
-        },
-        data() {
-            return {
-                flash: Flash.state,
-                auth: Auth.state
-            }
-        },
-        computed: {
-            check() {
-                if(this.auth.api_token && this.auth.user_id){
-                    return true
-                }
-                return false
-            }
-        },
-        methods: {
-          logout() {
+				if(err.response.status === 404) {
+					this.$router.push('/not-found')
+				}
+			})
+			Auth.initialize()
+		},
+		data() {
+			return {
+				authState: Auth.state,
+				flash: Flash.state
+			}
+		},
+		computed: {
+			auth() {
+				if(this.authState.api_token) {
+					return true
+				}
+				return false
+			},
+			guest() {
+				return !this.auth
+			}
+		},
+		methods: {
+			logout() {
 				post('/api/logout')
 				    .then((res) => {
-				        if(res.data.logged_out) {
+				        if(res.data.done) {
 				            Auth.remove()
 				            Flash.setSuccess('You have successfully logged out.')
 				            this.$router.push('/login')
 				        }
 				    })
 			}
-        }
-    }
+		}
+	}
 </script>
